@@ -1,0 +1,253 @@
+<script
+	src="<?php echo $this->baseUrl(); ?>/js/scripts/ocorrencias-sipon/index.js"></script>
+<link
+	href="<?php echo $this->baseUrl('css/ocorrencias-sipon/index.css') ?>"
+	rel="stylesheet">
+<div class="form-group has-feedback row">
+	<label class="control-label col-sm-3" for="dt_referencia">Meses
+		disponíveis:</label>
+	<div class="col-sm-5">
+		<select class="form-control" name="dt_referencia" id="dtReferencia">
+            <?php
+            foreach ($this->mesesDisponiveis as $key => $value) {
+                echo "<option>";
+                echo $value['dt_referencia'];
+                echo "</option>";
+            }
+            ?>
+        </select>
+	</div>
+	<br /> <br /> <br />
+</div>
+<div id="loadmsg" class="well well-sm row" style="display: none;"></div>
+<ul class="nav nav-tabs row">
+	<li role="presentation" class="active" id="tabGraficos"><a href="#"
+		onclick="clickGraficos()">Graficos</a></li>
+	<li role="presentation" id="tabPorCoordenacao"><a href="#"
+		onclick="clickPorCoordenacao()">Por Coordenacao</a></li>
+	<li role="presentation" id="tabPorEquipe"><a href="#"
+		onclick="clickPorEquipe()">Por Equipe</a></li>
+	<li role="presentation" id="tabPorEmpregado"><a href="#"
+		onclick="clickPorEmpregado()">Por Empregado</a></li>
+	<li role="presentation" id="tabExportacao"><a href="#"
+		onclick="clickExportacao()">Exportar Dados</a></li>
+	<li role="presentation" id="tabExportacao"><a href="#"
+		onclick="clickExportacaoAnual()">Exportar Dados Anuais</a></li>
+</ul>
+
+<div id="Graficos" class="row">
+	<div class="row">
+		<div class="col-xs-6" id="GraphOcorrencias"></div>
+		<div class="col-xs-6" id="GraphCoords"></div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12" id="GraphCoordsTipo"></div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12" id="GraphCoordsPorFunc"></div>
+	</div>
+</div>
+
+<div id="porCoordenacao" style="display: none;">
+	<h2 class="sub-header" id="titulo">
+        Totalização por Coordenação - <?php echo $this->ultimoMesDisponivel ?>
+    </h2>
+	<span style="color: #337AB7;"> Passe o mouse sobre as o código das
+		ocorrências para visualizar a descrição</span> <br /> <br />
+	<div class="table-responsive">
+		<table class="table table-striped  table-bordered sortable">
+			<thead>
+				<tr>
+					<th>Coordenação</th>
+					<th><a id="19" title="Falta Não Homologadas">19</a></th>
+					<th><a id="20" title="Ausência Não homologada">20</a></th>
+					<th><a id="53" title="Falta Abonada por Decisão Chefia">53</a></th>
+					<th><a id="56" title="AREG - Regularização do Ponto">56</a></th>
+					<th><a id="57" title="Intervalo < 1h">57</a></th>
+					<th><a id="58" title="Ausência de Intervalo">58</a></th>
+					<th><a id="70" title="Hora Extra > 2h">70</a></th>
+					<th><a id="195" title="Ponto Aberto">195</a></th>
+					<th><a id="bloqueio" title="Bloqueio da Trava SIPON">Bloqueio</a></th>
+				</tr>
+			</thead>
+			<tbody id="tbodyCoordenacao"></tbody>
+		</table>
+	</div>
+</div>
+
+<div id="porEquipe" style="display: none;">
+	<h2 class="sub-header" id="titulo">
+        Totalização por Equipe - <?php echo $this->ultimoMesDisponivel ?>
+    </h2>
+	<span style="color: #337AB7;"> Passe o mouse sobre as o código das
+		ocorrências para visualizar a descrição</span> <br /> <br />
+	<div id="areaGrafico"></div>
+	<div class="table-responsive">
+		<table class="table table-striped  table-bordered sortable">
+			<thead>
+				<tr>
+					<th>Equipe</th>
+					<th><a id="19" title="Falta Não Homologadas">19</a></th>
+					<th><a id="20" title="Ausência Não homologada">20</a></th>
+					<th><a id="53" title="Falta Abonada por Decisão Chefia">53</a></th>
+					<th><a id="56" title="AREG - Regularização do Ponto">56</a></th>
+					<th><a id="57" title="Intervalo < 1h">57</a></th>
+					<th><a id="58" title="Ausência de Intervalo">58</a></th>
+					<th><a id="70" title="Hora Extra > 2h">70</a></th>
+					<th><a id="195" title="Ponto Aberto">195</a></th>
+					<th><a id="bloqueio" title="Bloqueio da Trava SIPON">Bloqueio</a></th>
+				</tr>
+			</thead>
+			<tbody id="tbodyEquipe"></tbody>
+		</table>
+	</div>
+</div>
+
+<div id="porEmpregado" style="display: none;">
+	<h2 class="sub-header" id="titulo">Totalização por Empregado - <?php echo $this->ultimoMesDisponivel ?></h2>
+	<span style="color: #337AB7;"> Passe o mouse sobre as o código das
+		ocorrências para visualizar a descrição</span> <br /> <br />
+	<div class="form-group has-feedback">
+		<label class="control-label col-sm-3" for="area">Filtrar por equipe:</label>
+		<div class="col-sm-9">
+			<select class="form-control" name="area" id="area">
+				<option selected="selected" value="0">Selecione...</option>
+			</select>
+		</div>
+	</div>
+	<br /> <br />
+	<div class="table-responsive">
+		<table class="table table-striped  table-bordered sortable">
+			<thead>
+				<tr>
+					<th>Coordenação</th>
+					<th>Empregado</th>
+					<th><a id="19" title="Falta Não Homologadas">19</a></th>
+					<th><a id="20" title="Ausência Não homologada">20</a></th>
+					<th><a id="53" title="Falta Abonada por Decisão Chefia">53</a></th>
+					<th><a id="56" title="AREG - Regularização do Ponto">56</a></th>
+					<th><a id="57" title="Intervalo < 1h">57</a></th>
+					<th><a id="58" title="Ausência de Intervalo">58</a></th>
+					<th><a id="70" title="Hora Extra > 2h">70</a></th>
+					<th><a id="195" title="Ponto Aberto">195</a></th>
+					<th><a id="bloqueio" title="Bloqueio da Trava SIPON">Bloqueio</a></th>
+					<th><a id="pontos_utilizados" title="Total de Pontos Utilizados">Pts.
+							Utilizados</a></th>
+					<th><a id="percentual_utilizacao"
+						title="Percentual de Utilização">%</a></th>
+				</tr>
+			</thead>
+			<tbody id="tbodyEmpregado"></tbody>
+		</table>
+	</div>
+</div>
+
+<div id="exportacao" style="display: none;">
+	<h2 class="sub-header" id="titulo">Exportação de Dados</h2>
+	<span style="color: #337AB7;"> Selecione os campos que deseja exportar
+		ou <a href="#" id="selecionaTodos"><b>clique aqui</b></a> para
+		selecionar todos
+	</span> <br /> <br />
+	<form name="exportacao" id="formExportacao"
+		action="<?php echo $this->baseUrl(); ?>/ocorrencias-sipon/exportacao"
+		method="post">
+		<input type="hidden" name="dt_referencia" id="dtReferenciaExportacao"
+			value="<?php echo $this->ultimoMesDisponivel; ?>" />
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="no_funcionario">Nome
+				do Empregado</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]"
+				value="no_matricula_caixa">Matrícula</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="no_matr_func">User
+				ID</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="no_sigla_coord">Sigla
+				da Coordenação</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="de_coord">Nome
+				da Coordenação</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="no_sigla_area">Sigla
+				da Equipe</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="de_area">Nome da
+				Equipe</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="qt_56">Quantidade
+				- Ocorrência 56</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="qt_57">Quantidade
+				- Ocorrência 57</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="qt_58">Quantidade
+				- Ocorrência 58</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="qt_70">Quantidade
+				- Ocorrência 70</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="qt_195">Quantidade
+				- Ocorrência 195</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="qt_53">Quantidade
+				- Ocorrência 53</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="qt_19">Quantidade
+				- Ocorrência 19</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="qt_20">Quantidade
+				- Ocorrência 20</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]" value="qt_bloqueio">Quantidade
+				- Ocorrência Bloqueio</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="campos[]"
+				value="qt_total_pontos_utilizados">Quantidade - Pontos Utilizados</label>
+		</div>
+	</form>
+	<br />
+	<button type="button" class="btn btn-primary" id="btnExportar">Exportar
+		Dados</button>
+</div>
+
+<div id="exportacaoAnual" style="display: none;">
+	<h2 class="sub-header" id="titulo">Exportação de Dados Anual</h2>
+	<form name="exportacaoAnual" id="formExportacaoAnual"
+		action="<?php echo $this->baseUrl(); ?>/ocorrencias-sipon/exportacao-anual"
+		method="post">
+		<div class="form-group has-feedback">
+			<label class="control-label col-sm-2" for="ano">Selecione o ano:</label>
+			<div class="col-sm-3">
+				<select class="form-control" name="ano" id="ano">
+                    <?php
+                    foreach ($this->anosDisponiveis as $key => $value) {
+                        echo "<option>";
+                        echo $value['ano'];
+                        echo "</option>";
+                    }
+                    ?>
+                </select>
+			</div>
+		</div>
+	</form>
+	<br /> <br />
+	<button type="button" class="btn btn-primary" id="btnExportarAnual">Exportar
+		Dados</button>
+</div>

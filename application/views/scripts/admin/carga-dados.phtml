@@ -1,0 +1,156 @@
+<script
+	src="<?php echo $this->baseUrl('js/scripts/admin/carga-dados.js'); ?>"></script>
+        <div id="relGenerico" style="float: left; min-width: 500px">
+	<br />
+	<div class="well well-sm" style="display: none;"></div>
+
+        <form enctype="multipart/form-data" class="form-horizontal" role="form"
+		name="formRelGenerico" method="post"
+		action="<?php echo $this->baseUrl(); ?>/admin/carregar-generico">
+		<div class="form-group">
+			<label for="arquivo" class="col-sm-5 control-label">Tipo</label>
+			<div class="col-sm-6">
+				<select class="form-control" name="tipo_arquivo" id="tipo_arquivo">
+					<option value="default" selected>Selecione...</option>
+					<option value="hem">Hora Extras</option>
+					<option value="sipon">Ocorrências do SIPON</option>
+					<option value="fununiv">Trilha fundamental</option>
+					<option value="liduniv">Trilha Líder</option>
+					<option value="sitel">Ramais SITEL</option>
+					<!-- <option value="vouc">voucher - retorno</option> -->
+					<!-- <option value="sobr">sobreaviso realizado</option> -->
+					<!-- <option value="terceiros">Terceiros</option> -->
+					<option value="ligacoes">Fatura de Telefonia</option>
+					<option value="prestadores">Relação de Prestadores</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="arquivo" class="col-sm-5 control-label">Arquivo</label>
+			<div class="col-sm-6">
+				<input type="file" id="arquivo_gen" name="arquivo_gen"
+					placeholder="Selecione o arquivo a ser carregado" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="mes_ano" class="col-sm-5 control-label">Data de
+				Referência</label>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" id="dia_mes_ano"
+					name="dt_referencia" placeholder="DD/MM/YYYY">
+			</div>
+    </div>
+		<div class="form-group" id="container_nr_arquivo">
+			<label for="mes_ano" class="col-sm-5 control-label">Numero Arquivo</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="nr_arquivo"
+					name="nr_arquivo">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="linha_inicio" class="col-sm-5 control-label">Linha de
+				início dos dados</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="linha_inicio"
+					name="linha_inicio">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-5 col-sm-6">
+				<button type="button" class="btn btn-default" id="btnFormGenerico">Enviar</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<div class="form-group col-sm-12">
+    <h2>Histórico de cargas</h2>
+    <p>Fazer um upload de um arquivo com uma data referência já cadastrada fará com que os dados antigos sejam substituidos. Selecione uma data para autopreencher.</p>
+    <div class="col-sm-2">
+            <p style="margin-bottom: -2px; margin-top: 5px">Carga <span style="color: red;">Prestadores</span></p>
+            <select id="prestadores" class="form-control" name="tipo_arquivo" id="tipo_arquivo">
+                <option disabled selected value></option>
+                <?php
+                    for ($i = 0; $i < count($this->data['prestadores']); $i++) {
+                        echo '<option>';
+                        echo date_format(date_create($this->data['prestadores'][$i]['date']), 'd/m/Y'). "<br/>";
+                        echo '</option>';
+                    }
+                ?>
+            </select>
+    </div>
+    <div class="col-sm-2">
+            <p style="margin-bottom: -2px; margin-top: 5px">Carga <span style="color: red;">Sipon</span></p>
+                <select id="sipon" class="form-control" name="tipo_arquivo" id="tipo_arquivo">
+                    <option disabled selected value></option>
+                    <?php
+                        for ($i = 0; $i < count($this->data['sipon']); $i++) {
+                            echo '<option>';
+                            echo date_format(date_create($this->data['sipon'][$i]['date']), 'd/m/Y'). "<br/>";
+                            echo '</option>';
+                        }
+                    ?>
+                </select>
+    </div>
+    <div class="col-sm-2">
+            <p style="margin-bottom: -2px; margin-top: 5px">Carga <span style="color: red;">Hora Extra</span></p>
+                <select id="h_extra" class="form-control" name="tipo_arquivo" id="tipo_arquivo">
+                    <option disabled selected value></option>
+                    <?php
+                        for ($i = 0; $i < count($this->data['h_extra']); $i++) {
+                            echo '<option>';
+                            echo date_format(date_create($this->data['h_extra'][$i]['date']), 'd/m/Y'). "<br/>";
+                            echo '</option>';
+                        }
+                    ?>
+                </select>
+    </div>
+    <div class="col-sm-2">
+            <p style="margin-bottom: -2px; margin-top: 5px">Carga <span style="color: red;">Fatura Telefonia</span></p>
+                <select id="liga" class="form-control" name="tipo_arquivo" id="tipo_arquivo">
+                    <option disabled selected value></option>
+                    <?php
+                        for ($i = 0; $i < count($this->data['ligacoes']); $i++) {
+                            echo '<option>';
+                            echo date_format(date_create($this->data['ligacoes'][$i]['date']), 'd/m/Y'). ' ' . $this->data['ligacoes'][$i]['nr_arquivo'] . ' ' . $this->data['ligacoes'][$i]['nome'] . ' ' . $this->data['ligacoes'][$i]['sum'];
+                            echo '</option>';
+                        }
+                    ?>
+                </select>
+    </div>
+    <div class="col-sm-2">
+            <p style="margin-bottom: -2px; margin-top: 5px">Carga <span style="color: red;">Fundamental</span></p>
+                <select id="fundamental" class="form-control" name="tipo_arquivo" id="tipo_arquivo">
+                    <option disabled selected value></option>
+                    <?php
+                        for ($i = 0; $i < count($this->data['fundamental']); $i++) {
+                            echo '<option>';
+                            echo date_format(date_create($this->data['fundamental'][$i]['date']), 'd/m/Y'). "<br/>";
+                            echo '</option>';
+                        }
+                    ?>
+                </select>
+    </div>
+    <div class="col-sm-2">
+            <p style="margin-bottom: -2px; margin-top: 5px">Carga <span style="color: red;">Lider</span></p>
+                <select id="lider" class="form-control" name="tipo_arquivo" id="tipo_arquivo">
+                    <option disabled selected value></option>
+                    <?php
+                        for ($i = 0; $i < count($this->data['lider']); $i++) {
+                            echo '<option>';
+                            echo date_format(date_create($this->data['lider'][$i]['date']), 'd/m/Y'). "<br/>";
+                            echo '</option>';
+                        }
+                    ?>
+                </select>
+    </div>
+</div>
+
+<div class="form-group col-sm-12" style="margin-top: 25px">
+	<i>Obs:</i> orientações para upload dos arquivos de ligações telefonicas.
+	<br />1 - Atualize base SIPTI
+  <br />2 - Suba Relação de Prestadores
+	<br />3 - Suba Fatura de Telefonia
+	<br />4 - Suba os Ramais do SITEL
+</div>

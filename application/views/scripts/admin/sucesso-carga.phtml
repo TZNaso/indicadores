@@ -1,0 +1,44 @@
+<script
+	src="<?php echo $this->baseUrl('js/scripts/admin/carga-dados.js'); ?>"></script>
+
+<div id="relatorio">
+
+	<h4>Sucesso de carga</h4>
+
+	<br />
+
+	<div class="well well-sm" style="display: none;"></div>
+
+    <?php if($this->erro) { ?>
+
+
+    <span style="color: red;"><b>ATENÇÃO:</b></span> <?php echo $this->erro; ?>
+
+    <?php } else {?>
+
+    <?php if(!$this->empregadosNaoEncontrados) { ?>
+
+    Carga dos registros realizada com sucesso!
+
+    <?php } else { ?>
+
+    A carga foi realizada com sucesso, mas o seguintes empregados não foram encontrados na base de dados:
+
+    <br /> <br />
+
+    <?php
+
+            foreach ($this->empregadosNaoEncontrados as $value) {
+
+                echo $value;
+                echo "<br/>";
+            }
+        }
+        ?>
+
+     <br /> <br /> <b>Total de Registros Carregados:</b>  <?php echo $this->totalCarregado; ?>
+    <br /> <b>Total de Registros Não Carregados:</b>  <?php echo $this->totalNaoCarregado; ?>
+
+    <?php } ?>
+
+</div>

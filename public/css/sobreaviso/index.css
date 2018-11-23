@@ -1,0 +1,59 @@
+.sobad {
+	background-color: #c12e2a !important;
+	color: white;
+	text-shadow: 1px 1px #000 !important;
+}
+
+.yahoo {
+	background-color: #61A120 !important;
+	color: white;
+	text-shadow: 1px 1px #000 !important;
+}
+
+.warning  td {
+	background-color: #eb9316 !important;
+	color: white;
+	text-shadow: 1px 1px #000 !important;
+}
+
+.bleh {
+	background-color: #265a88 !important;
+	color: white;
+	text-shadow: 1px 1px #000 !important;
+}
+
+#meta {
+	margin: 50px;
+	padding: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border-color: blue;
+	border-style: solid;
+	border-width: 1px;
+}
+
+#meta div {
+	font-family: arial black;
+	font-size: 15px;
+	list-style-type: none;
+	padding: 0;
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* centered columns styles */
+.row-centered {
+	text-align: center;
+}
+
+.col-centered {
+	display: inline-block;
+	float: none;
+	/* reset the text-align */
+	text-align: left;
+	/* inline-block space fix */
+	margin-right: -4px;
+}

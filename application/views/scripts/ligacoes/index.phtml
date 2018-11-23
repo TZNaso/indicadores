@@ -1,0 +1,345 @@
+<script
+	src="<?php echo $this->baseUrl(); ?>/js/scripts/ligacoes/index.js"></script>
+<script src="<?php echo $this->baseUrl(); ?>/js/add_two_times.js"></script>
+<link
+	href="<?php echo $this->baseUrl('css/ocorrencias-sipon/index.css') ?>"
+	rel="stylesheet">
+<link href="<?php echo $this->baseUrl('css/ligacoes/index.css') ?>"
+	rel="stylesheet">
+
+
+<link rel="stylesheet" type="text/css"
+	href="<?php echo $this->baseUrl(); ?>/js/dataTable/css/jquery.dataTables.css">
+<script type="text/javascript" language="javascript"
+	src="<?php echo $this->baseUrl(); ?>/js/dataTable/js/jquery.dataTables.js"></script>
+
+
+<div class="form-group has-feedback row">
+	<label class="control-label col-sm-3" for="dt_referencia">Meses
+		disponíveis:</label>
+	<div class="col-sm-5">
+        <select class="form-control" name="dt_referencia" id="dtReferencia">
+
+            <?php
+
+            $unique_dates = array_unique(array_map(function($elem){return $elem['dt_referencia'];}, $this->mesesDisponiveis));
+            foreach ($unique_dates as $value) {
+                echo "<option>";
+                echo $value;
+                echo "</option>";
+            }
+            ?>
+        </select>
+	</div>
+	<br /> <br /> <br />
+</div>
+<div class="form-group has-feedback row">
+	<label class="control-label col-sm-3" for="dt_referencia">Fábricas de Telefonia:</label>
+	<div class="col-sm-5">
+		<form name="exportarDados" id="formExportarDados"
+			action="<?php echo $this->baseUrl(); ?>/ligacoes/ajax-report"
+			method="post">
+			<div class="col-sm-3">
+				<input type="checkbox" id="tel" onclick="validaCheckBox()" name="prestTelefonia1" value="Embratel"> Embratel </input>
+				<p id="text" style="display:none">Checkbox is CHECKED!</p>
+			</div>
+			<div class="col-sm-3">
+				<input type="checkbox" id="tel2" onclick="validaCheckBox()" name="prestTelefonia2" value="teste2"> teste2 </input>
+			</div>
+			<div class="col-sm-3">
+				<input type="checkbox" id="tel3" onclick="validaCheckBox()" name="prestTelefonia3" value="Telefoniaca"> Telefônica </input>
+			</div>
+
+			<script language="Javascript">
+				function validaCheckBox() {
+					var checkBox = document.getElementById("tel");
+					var text = document.getElementById("text");
+
+					if (checkBox.checked == true){
+						text.style.display = "block";
+					} else {
+						text.style.display = "none";
+					}
+				}
+			</script>	
+		</form>
+	</div>
+	<br /> <br />
+</div>
+<div id="loadmsg" class="well well-sm row" style="display: none;"></div>
+<ul class="nav nav-tabs row">
+	<li role="presentation" class="active" id="tabGraficos"><a href="#"
+		onclick="clickGraficos()">Graficos</a></li>
+	<li role="presentation" id="tabPorCoordenacao"><a href="#"
+		onclick="clickPorCoordenacao()">Por Coordenacao</a></li>
+	<li role="presentation" id="tabPorEquipe"><a href="#"
+		onclick="clickPorEquipe()">Por Equipe</a></li>
+	<li role="presentation" id="tabPorEmpregado"><a href="#"
+		onclick="clickPorEmpregado()">Por Empregado</a></li>
+	<li role="presentation" id="tabDetalhamentoEmpregado"><a href="#"
+		onclick="clickDetalhamentoEmpregado()">Detalhamento Empregado</a></li>
+	<li role="presentation" id="tabRamaisNotFound"><a href="#"
+		onclick="clickRamaisNotFound()">Ramais não encontrados</a></li>
+	<li role="presentation" id="tabExportarDados"><a href="#"
+		onclick="clickExportarDados()">Exportar Dados</a></li>
+</ul>
+
+<div id="Graficos" class="row">
+	<div class="row">
+			<div id="chartContainerCEDES" style="height: 600px; width: 100%;"></div>
+	</div>
+	<div class="row">
+      <div id="chartContainerNONCEDES" style="height: 600px; width: 100%;"></div>
+	</div>
+</div>
+
+<div id="porCoordenacao" style="display: none;">
+	<h2 class="sub-header" id="titulo">
+        Totalização por Coordenação
+    </h2>
+	<br /> <br />
+	<div class="table-responsive">
+		<table id="tabelaPorCoord"
+			class="table table-striped  table-bordered sortable"
+			style="width: 100%">
+			<thead>
+				<tr>
+					<th>Coordenação</th>
+					<th>Duração</th>
+					<th>Valor</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<div id="porEquipe" style="display: none;">
+    <h2 class="sub-header" id="titulo">
+        Totalização por Equipe
+    </h2>
+
+	<!--<script language="javascript">
+		if(clickPorCoordenacao()){
+			function $(document).ready()
+		}		
+	</script>-->
+
+    <div class="form-group has-feedback">
+		<label class="control-label col-sm-3" for="area">Filtrar por equipes da coordenação:</label>
+		<div class="col-sm-9">
+            <select class="form-control" name="equipes" id="equipes">
+            	<option selected="selected" value="0">Selecione...</option>
+                <?php
+                foreach ($this->coords as $key => $value) {
+                    echo "<option>";
+                    echo $key;
+                    echo "</option>";
+                }
+                ?>
+            </select>
+		</div>
+	</div>
+	<br /> <br />
+
+	<?php
+	foreach ($this->coords as $key => $value) {
+		$v = join("|", $value);
+		echo "<input class='coordsEquipes' id='{$key}' type='hidden' value='{$v}'>";
+	}
+	?>
+    <script type="text/javascript">
+		$("#equipes").change(() => {
+			let coord = $("#equipes").val()
+			let equipes = $(`#${coord}`).val()
+
+			$("#tabelaPorEquipe_wrapper input").val(equipes).trigger("keyup");
+		})
+    </script>
+	<br /> <br />
+	<div id="areaGrafico"></div>
+	<div class="table-responsive">
+		<table id="tabelaPorEquipe"
+			class="table table-striped  table-bordered sortable"
+			style="width: 100%">
+			<thead>
+				<tr>
+					<th>Equipe</th>
+					<th>Duração</th>
+					<th>Valor</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<div id="porEmpregado" style="display: none;">
+	<h2 class="sub-header" id="titulo">Totalização por Empregado</h2>
+        <p>Clique em um ramal para adicionar um telefone a serviço vinculado a esse ramal</p>
+	<br /> <br />
+	<div class="table-responsive">
+		<table id="tabelaPorFuncionario"
+			class="table table-striped table-bordered sortable"
+			style="width: 100%">
+			<thead>
+				<tr>
+					<th>Equipe</th>
+                    <th>Matrícula</th>
+					<th>Empregado</th>
+					<th>Ramal Funcionário</th>
+					<th>Duração</th>
+					<th>Valor</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<div id="detalhamentoEmpregado" style="display: none;">
+	<h2 class="sub-header" id="titulo">Descrição por empregado</h2>
+	<br /> <br />
+	<div class="table-responsive">
+		<table id="tabelaPorAll"
+			class="table table-striped table-bordered sortable"
+			style="width: 100%">
+			<thead>
+				<tr>
+					<th>Coord</th>
+					<th>Matrícula</th>
+					<th>Empregado</th>
+					<th>Ramal Funcionário</th>
+					<th>Número Chamado</th>
+					<th>Duração</th>
+					<th>Valor</th>
+					<th>Hora Ocorrencia</th>
+					<th>A serviço</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<div id="ramaisNotFound" style="display: none;">
+	<h2 class="sub-header" id="titulo">Ramais não encontrados</h2>
+	<br /> <br />
+	<div class="table-responsive">
+		<table id="tabelaRamaisNotFound"
+			class="table table-striped table-bordered sortable"
+			style="width: 100%">
+			<thead>
+				<tr>
+					<th>Ramal</th>
+					<th>Nome</th>
+					<th>Matricula</th>
+					<th>Coordenação</th>
+					<th>Equipe</th>
+					<th>Data Referência</th>
+					<th>Adicionar</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Novo Número a
+					serviço</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="recipient-name" class="col-form-label">Número a
+						serviço (61999999999): </label> <input type="tel"
+						class="form-control" id="telefoneServico" pattern=".{11,11}"
+						required="required">
+				</div>
+
+				<div class="form-group" id="listaCadastrados">
+					<h2>Lista de cadastrados:</h2>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				<button type="button" class="btn btn-primary" id="addNumeroServico">Adicionar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="exportarDados" style="display: none;">
+	<h2 class="sub-header" id="titulo">Exportação de Dados</h2>
+	<form name="exportarDados" id="formExportarDados"
+		action="<?php echo $this->baseUrl(); ?>/ligacoes/ajax-report"
+		method="post">
+		<input type="hidden" id="dt_referencia_relatorio" name="dt_referencia"></input>
+		<div class="col-sm-2">
+		    <label for="data_inicio">Data Inicio: </label>
+
+		    <input id="data_inicio" class="form-control" type="date" name="data_inicio"> <br />
+	  </div>
+		<div class="col-sm-2">
+				<label for="data_fim">Data Fim: </label>
+
+		    <input id="data_fim" class="form-control" type="date" name="data_fim"> <br />
+		</div>
+		<br />
+		<div class="col-sm-2">
+		    <input type="submit" class="btn btn-primary" id="btnExportarAnual"></input>
+	  </div>
+	</form>
+	<br /> <br />
+</div>

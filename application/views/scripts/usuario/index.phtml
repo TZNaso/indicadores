@@ -1,0 +1,131 @@
+<script
+	src="<?php echo $this->baseUrl('js/scripts/usuario/index.js'); ?>"></script>
+
+<ul class="nav nav-pills">
+	<li role="presentation" id="tabTodos" class="active"><a href="#"
+		onclick="clickTodos()">Empregados Cadastrados</a></li>
+	<li role="presentation" id="tabAdmin"><a href="#"
+		onclick="clickAdmin()">Administradores do Sistema</a></li>
+	<li role="presentation" id="tabNovo"><a href="#" onclick="clickNovo()">Cadastrar
+			Usuário</a></li>
+</ul>
+
+<hr />
+
+<div id="todos">
+
+	<h2 class="sub-header" id="titulo">
+		Usuários
+		<!--    
+            <span id="graficoPorEquipe" class="glyphicon glyphicon-stats" aria-hidden="true" title="Visualizar Gráfico"></span>
+        -->
+	</h2>
+
+	<div class="well well-sm" style="display: none;"></div>
+
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>User ID</th>
+					<th>Nome</th>
+					<th>Equipe</th>
+					<th><center>Operações</center></th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+                <?php
+                foreach ($this->arrTodos as $value) {
+
+                    echo "<tr id='todos-" . $value['nu_usuario'] . "'>";
+                    echo "<td>" . $value['no_matr_func'] . "</td>";
+                    echo "<td>" . $value['no_funcionario'] . "</td>";
+                    echo "<td>" . $value['no_sigla_area'] . "</td>";
+                    echo "<td align='center'>";
+                    echo "<div class='btn-group'>";
+                    echo "<button type='button' class='btn btn-default btn-xs' aria-label='Excluir' title='Excluir' onclick='excluiUsuario(\"" . $value['nu_usuario'] . "\")'>";
+                    echo "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
+                    echo "</button>";
+                    echo "<button type='button' class='btn btn-default btn-xs' aria-label='Tornar Administrador' title='Tornar Administrador' onclick='tornaAdmin(\"" . $value['nu_usuario'] . "\")'>";
+                    echo "<span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>";
+                    echo "</button>";
+                    echo "</div>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                ?>
+
+            </tbody>
+		</table>
+	</div>
+
+</div>
+
+<div id="administradores" style="display: none;">
+
+	<h2 class="sub-header" id="titulo">
+		Administradores do Sistema
+		<!--    
+            <span id="graficoPorEquipe" class="glyphicon glyphicon-stats" aria-hidden="true" title="Visualizar Gráfico"></span>
+        -->
+	</h2>
+
+	<div class="well well-sm" style="display: none;"></div>
+
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>User ID</th>
+					<th>Nome</th>
+					<th>Equipe</th>
+					<th><center>Operações</center></th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+                <?php
+                foreach ($this->arrAdmin as $value) {
+
+                    echo "<tr id='admin-" . $value['nu_usuario'] . "'>";
+                    echo "<td>" . $value['no_matr_func'] . "</td>";
+                    echo "<td>" . $value['no_funcionario'] . "</td>";
+                    echo "<td>" . $value['no_sigla_area'] . "</td>";
+                    echo "<td align='center'>";
+                    echo "<button type='button' class='btn btn-default btn-xs' aria-label='Excluir' title='Excluir' onclick='excluiAdmin(\"" . $value['nu_usuario'] . "\")'>";
+                    echo "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
+                    echo "</button>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                ?>
+
+            </tbody>
+		</table>
+	</div>
+
+</div>
+
+
+<div id="novo" style="display: none;">
+
+	<h2 class="sub-header" id="titulo">Cadastrar Usuário</h2>
+
+	<div class="well well-sm" style="display: none;"></div>
+
+	<form class="navbar-form navbar-left" role="search" id='frmCadastro'>
+		<div class="form-group">
+			<input type="text" class="form-control" name="usuario"
+				placeholder="User ID">
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control" name="senha"
+				placeholder="Senha">
+		</div>
+		<button type="button" class="btn btn-primary" id='btnCadastrar'>Cadastrar</button>
+	</form>
+
+</div>

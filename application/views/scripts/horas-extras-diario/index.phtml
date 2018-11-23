@@ -1,0 +1,89 @@
+<script
+	src="<?php echo $this->baseUrl() ?>/js/scripts/horas-extras-diario/index.js"></script>
+<link
+	href="<?php echo $this->baseUrl('css/horas-extras-diario/index.css') ?>"
+	rel="stylesheet">
+<div class="row">
+	<div class="form-group has-feedback">
+		<label class="control-label col-sm-3" for="dt_referencia">Dias
+			disponíveis:</label>
+		<div class="col-sm-5">
+			<select class="form-control" name="dt_referencia" id="dtReferencia">
+                <?php
+                foreach ($this->datasDisponiveis as $key => $value) {
+                    echo "<option value=" . $value['dt_ref'] . ">";
+                    echo $value['dt_referencia'];
+                    echo "</option>";
+                }
+                ?>
+            </select>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<br />
+	<div id="loadmsg" class="well well-sm" style="display: none;"></div>
+</div>
+<div id="meta" class="row">
+	<div class="col-xs-2">Total CEDESBR:</div>
+	<div id="totalCedes" class=" orange col-xs-2">---</div>
+	<div class="col-xs-2">Intervalo:</div>
+	<div id="dtInicial" class=" orange col-xs-2">---</div>
+	<div id="totalCedes" class="col-xs-2">a</div>
+	<div id="DtFinal" class=" orange col-xs-2">---</div>
+</div>
+
+<div class="row">
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="active" id="tabPorCoordenacao"><a
+			href="#" onclick="clickPorCoordenacao()">Por Coordenação</a></li>
+		<li role="presentation" id="tabPorEmpregado"><a href="#"
+			onclick="clickPorEmpregado()">Por Empregado</a></li>
+	</ul>
+
+	<div id="porCoordenacao">
+		<h2 class="sub-header" id="titulo">Totalização por Coordenação</h2>
+		<br /> <br />
+		<div class="table-responsive">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Horas</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyCoordenacao">
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="porEmpregado" style="display: none;">
+		<h2 class="sub-header" id="titulo">Totalização por Empregado</h2>
+		<br /> <br />
+		<div class="form-group has-feedback">
+			<label class="control-label col-sm-3" for="area">Filtrar por
+				Coordenação:</label>
+			<div class="col-sm-9">
+				<select class="form-control" name="area" id="coords">
+					<option selected="selected" value="0">Selecione...</option>
+				</select>
+			</div>
+		</div>
+		<br /> <br />
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Horas</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyEmpregado">
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

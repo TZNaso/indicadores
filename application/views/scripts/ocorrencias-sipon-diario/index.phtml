@@ -1,0 +1,214 @@
+<script
+	src="<?php echo $this->baseUrl(); ?>/js/scripts/ocorrencias-sipon-diario/index.js"></script>
+<link
+	href="<?php echo $this->baseUrl('css/ocorrencias-sipon/index.css') ?>"
+	rel="stylesheet">
+<link
+	href="<?php echo $this->baseUrl('css/horas-extras-diario/index.css') ?>"
+	rel="stylesheet">
+<div class="form-group has-feedback row">
+	<label class="control-label col-sm-3" for="dt_referencia">Datas
+		disponíveis:</label>
+	<div class="col-sm-5">
+		<select class="form-control" name="dt_referencia" id="dtReferencia">
+            <?php
+            foreach ($this->datasDisponiveis as $key => $value) {
+                echo "<option>";
+                echo $value['dt_referencia'];
+                echo "</option>";
+            }
+            ?>
+        </select>
+	</div>
+	<br /> <br /> <br />
+</div>
+
+<div id="loadmsg" class="well well-sm row" style="display: none;"></div>
+
+
+<div id="meta" class="row">
+	<div class="col-xs-2">Ponto em aberto:</div>
+	<div id="somAberto" class=" orange col-xs-2">---</div>
+	<div class="col-xs-2">AREG:</div>
+	<div id="somAREG" class=" orange col-xs-2">---</div>
+	<div class="col-xs-2">Hora extra maior que 2hrs:</div>
+	<div id="somHE" class=" orange col-xs-2">---</div>
+	<div class="col-xs-2">Intervalo menor que 1hr:</div>
+	<div id="somIntervalo" class=" orange col-xs-2">---</div>
+	<div class="col-xs-2">Ausência de Intervalo:</div>
+	<div id="somAusencia" class=" orange col-xs-2">---</div>
+	<div class="col-xs-2">Faltas:</div>
+	<div id="somFaltas" class=" orange col-xs-2">---</div>
+	<div class="col-xs-2">Faltas Não homologadas:</div>
+	<div id="somFaltaNH" class=" orange col-xs-2">---</div>
+	<div class="col-xs-2">Ausências não homologadas:</div>
+	<div id="somAusenciaNH" class=" orange col-xs-2">---</div>
+	<div class="col-xs-2">Bloqueios:</div>
+	<div id="somBloqueio" class=" orange col-xs-2">---</div>
+</div>
+
+<br />
+<br />
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" href="#pontoAberto">Ponto em
+			aberto</a></li>
+	<li><a data-toggle="tab" href="#Areg">AREG</a></li>
+	<li><a data-toggle="tab" href="#maiorHora">Hora extra maior que duas
+			horas</a></li>
+	<li><a data-toggle="tab" href="#menorHora">Intervalo menor que uma hora</a></li>
+	<li><a data-toggle="tab" href="#ausenciaIntervalo">Ausência de
+			Intervalo</a></li>
+	<li><a data-toggle="tab" href="#faltaAbonada">Falta Abonada por
+			Decisão Chefia</a></li>
+	<li><a data-toggle="tab" href="#faltaNaoHomologada">Falta Não
+			Homologada</a></li>
+	<li><a data-toggle="tab" href="#ausenciaNaoHomologada">Ausência Não
+			Homologada</a></li>
+	<li><a data-toggle="tab" href="#bloqueioTrava">Bloqueio da Trava SIPON</a></li>
+</ul>
+
+<div class="tab-content">
+	<div id="pontoAberto" class="tab-pane fade in active">
+		<div class="table-responsive ">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody id="tbodypontoAberto"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="Areg" class="tab-pane fade">
+		<div class="table-responsive">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyAreg"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="maiorHora" class="tab-pane fade">
+		<div class="table-responsive">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyMaiorHora"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="menorHora" class="tab-pane fade">
+		<div class="table-responsive">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyMenorHora"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="ausenciaIntervalo" class="tab-pane fade">
+		<div class="table-responsive">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyausenciaIntervalo"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="faltaAbonada" class="tab-pane fade">
+		<div class="table-responsive">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyfaltaAbonada"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="faltaNaoHomologada" class="tab-pane fade">
+		<div class="table-responsive">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyfaltaNaoHomologada"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="ausenciaNaoHomologada" class="tab-pane fade">
+		<div class="table-responsive">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyausenciaNaoHomologada"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="bloqueioTrava" class="tab-pane fade">
+		<div class="table-responsive">
+			<table class="table table-striped  table-bordered sortable">
+				<thead>
+					<tr>
+						<th>Coordenação</th>
+						<th>Matrícula</th>
+						<th>Nome</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody id="tbodybloqueioTrava"></tbody>
+			</table>
+		</div>
+	</div>
+</div>

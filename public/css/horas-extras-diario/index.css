@@ -1,0 +1,18 @@
+#meta {
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border-color: blue;
+	border-style: solid;
+	border-width: 1px;
+	display: block;
+	font-family: arial black;
+	font-size: 15px;
+	text-align: center;
+	padding: 20px;
+	margin: 20px;
+}
+
+.orange {
+	color: rgb(255, 97, 3);
+}

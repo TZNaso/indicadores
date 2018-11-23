@@ -1,0 +1,61 @@
+<script
+	src="<?php echo $this->baseUrl(); ?>/js/scripts/universidade-graficos/index.js">
+</script>
+<link
+	href="<?php echo $this->baseUrl('css/universidade-graficos/index.css') ?>"
+	rel="stylesheet">
+<div class="form-group has-feedback">
+	<label class="control-label col-sm-2" for="dt_referencia">Datas
+		disponíveis:</label>
+	<div class="col-sm-5">
+		<select class="form-control" name="dt_referencia" id="dtReferencia">
+            <?php
+            foreach ($this->DatasDisponiveis as $key => $value) {
+                echo "<option>";
+                echo $value['dt_referencia'];
+                echo "</option>";
+            }
+            ?>
+        </select>
+	</div>
+</div>
+<br />
+<br />
+<br />
+<div id="loadmsg" class="well well-sm" style="display: none;"></div>
+<div id="haschart">
+	<div class="container" id="graphGeral">
+		<div class="row">
+			<div class="col-xs-2" id="totalFuncionarios">
+				<ul>
+					<li>Funcionários
+						<div id="totalFuncionariosSimples">---</div>
+					</li>
+					<li>Líderes
+						<div id="totalFuncionariosLideres">---</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col-xs-5 graphGeral" id="GraphFundamentalGeral"></div>
+			<div class="col-xs-5 graphGeral" id="GraphLiderGeral"></div>
+		</div>
+	</div>
+	<div id="fundamental">
+		<button type="button" class="btn  pull-right btnBack"
+			id="btnBackFundamental">Voltar</button>
+		<br /> <br />
+		<div class="basicGraph" id="GraphCoordFundamental"></div>
+		<div class="basicGraph ocult" id="GraphEquipeFundamental"></div>
+		<div class="basicGraph ocult" id="GraphEmpregadoFundamental"></div>
+		<div class="basicGraph ocult" id="GraphEmpregadoFundamentalTotal"></div>
+	</div>
+	<div id="lider">
+		<button type="button" class="btn  pull-right btnBack"
+			id="btnBackLider">Voltar</button>
+		<br /> <br />
+		<div class="basicGraph" id="GraphCoordLider"></div>
+		<div class="basicGraph ocult" id="GraphEquipeLider"></div>
+		<div class="basicGraph ocult" id="GraphEmpregadoLider"></div>
+		<div class="basicGraph ocult" id="GraphEmpregadoLiderTotal"></div>
+	</div>
+</div>

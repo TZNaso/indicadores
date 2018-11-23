@@ -1,0 +1,140 @@
+<script
+	src="<?php echo $this->baseUrl(); ?>/js/scripts/universidade-lider/index.js"></script>
+
+
+<div class="form-group has-feedback">
+	<label class="control-label col-sm-3" for="dt_referencia">Datas
+		indisponíveis:</label>
+	<div class="col-sm-5">
+		<select class="form-control" name="dt_referencia" id="dtReferencia">
+            <?php
+            foreach ($this->datasDisponiveis as $key => $value) {
+                echo "<option>";
+                echo $value['dt_referencia'];
+                echo "</option>";
+            }
+            ?>
+        </select>
+	</div>
+</div>
+
+<br />
+<br />
+<br />
+
+<ul class="nav nav-tabs">
+	<li role="presentation" class="active" id="tabPorCoordenacao"><a
+		href="#" onclick="clickPorCoordenacao()">Por Coordenação</a></li>
+	<li role="presentation" id="tabPorEquipe"><a href="#"
+		onclick="clickPorEquipe()">Por Equipe</a></li>
+	<li role="presentation" id="tabPorEmpregado"><a href="#"
+		onclick="clickPorEmpregado()">Por Empregado</a></li>
+</ul>
+
+<div id="porCoordenacao">
+	<h2 class="sub-header" id="titulo">
+        Totalização por Coordenação - <?php echo $this->ultimaDataDisponivel ?>
+        <!--
+            <span id="graficoPorEquipe" class="glyphicon glyphicon-stats" aria-hidden="true" title="Visualizar Gráfico"></span>
+        -->
+	</h2>
+	<div id="areaGrafico"></div>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Coordenação</th>
+					<th>Total trilhado</th>
+					<th>Meta</th>
+				</tr>
+			</thead>
+
+			<tbody id="tbodyCoordenacao">
+                <?php
+                foreach ($this->totalizacaoCoordenacao as $value) {
+                    echo "<tr>";
+                    echo "<td>" . $value['coordenacao'] . "</td>";
+                    echo "<td>" . $value['total_trilhado'] . "%" . "</td>";
+                    echo "<td>" . $value['meta'] . "</td>";
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+		</table>
+	</div>
+</div>
+
+<div id="porEquipe" style="display: none;">
+	<h2 class="sub-header" id="titulo">
+        Totalização por Equipe - <?php echo $this->ultimaDataDisponivel ?>
+    </h2>
+	<div id="areaGrafico"></div>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Equipe</th>
+					<th>Total trilhado</th>
+					<th>Meta</th>
+				</tr>
+			</thead>
+			<tbody id="tbodyEquipe">
+                <?php
+                foreach ($this->totalizacaoEquipe as $value) {
+                    echo "<tr>";
+                    echo "<td>" . $value['area'] . "</td>";
+                    echo "<td>" . $value['total_trilhado'] . "%</td>";
+                    echo "<td>" . $value['meta'] . "</td>";
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+		</table>
+	</div>
+</div>
+
+<div id="porEmpregado" style="display: none;">
+	<h2 class="sub-header" id="titulo">Totalização por Empregado - <?php echo $this->ultimoMesDisponivel ?></h2>
+	<br /> <br />
+	<div class="form-group has-feedback">
+		<label class="control-label col-sm-3" for="area">Filtrar por equipe:</label>
+		<div class="col-sm-9">
+			<select class="form-control" name="area" id="area">
+				<option selected="selected" value="0">Selecione...</option>
+                <?php
+                foreach ($this->areasDosponiveis as $key => $value) {
+
+                    echo "<option value = '{$value['nu_area']}'>";
+                    echo $value['area'];
+                    echo "</option>";
+                }
+                ?>
+            </select>
+		</div>
+	</div>
+	<br /> <br />
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Equipe</th>
+					<th>Empregado</th>
+					<th>Total trilhado</th>
+					<th>Meta</th>
+				</tr>
+			</thead>
+			<tbody id="tbodyEmpregado">
+                <?php
+                foreach ($this->totalizacaoEmpregado as $value) {
+                    echo "<tr id='" . $value['nu_area'] . "'>";
+                    echo "<td>" . $value['sigla_area'] . "</td>";
+                    echo "<td>" . $value['nome_func'] . "</td>";
+                    echo "<td>" . $value['porcentagem'] . "%" . "</td>";
+                    echo "<td>" . 100 . "%" . "</td>";
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+		</table>
+	</div>
+</div>
