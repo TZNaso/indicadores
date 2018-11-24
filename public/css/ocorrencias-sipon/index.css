@@ -1,0 +1,49 @@
+.chart div {
+	font: 10px sans-serif;
+	background-color: steelblue;
+	text-align: right;
+	padding: 3px;
+	margin: 1px;
+	color: white;
+}
+
+.chart {
+	width: 600px;
+	height: 300px;
+}
+
+.table-responsive {
+	padding-top: 50px;
+}
+
+.tooltip {
+	z-index: 10000 !important;
+}
+
+.chart rect {
+	fill: steelblue;
+}
+
+.tick>text {
+	fill: black !important;
+}
+
+.chart text {
+	fill: white;
+	font: 10px sans-serif;
+	text-anchor: end;
+}
+
+.axis {
+	font: 10px sans-serif;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.canvasjs-chart-credit {
+	display: none;
+}

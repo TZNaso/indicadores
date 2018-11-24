@@ -1,0 +1,74 @@
+<?php $session = new Zend_Session_Namespace('auth'); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Painel CEDESBR">
+<meta name="author" content="CEDESBR031">
+
+<title>Painel CEDESBR</title>
+
+<!-- CSS -->
+<link href="<?php echo $this->baseUrl('css/bootstrap.css') ?>"
+	rel="stylesheet">
+<link href="<?php echo $this->baseUrl('css/bootstrap-theme.css') ?>"
+	rel="stylesheet">
+<link href="<?php echo $this->baseUrl('css/dashboard.css') ?>"
+	rel="stylesheet">
+<link href="<?php echo $this->baseUrl('css/bootstrap-sortable.css') ?>"
+	rel="stylesheet">
+
+<!-- JavaScript -->
+<script src="<?php echo $this->baseUrl('js/jquery-2.1.1.js') ?>"></script>
+<script src="<?php echo $this->baseUrl('js/bootstrap.min.js') ?>"></script>
+<script src="<?php echo $this->baseUrl('js/bootbox.min.js') ?>"></script>
+<script src="<?php echo $this->baseUrl('js/jquery.maskedinput.js') ?>"></script>
+<script src="<?php echo $this->baseUrl('js/global.js') ?>"></script>
+<script src="<?php echo $this->baseUrl('js/layout.js') ?>"></script>
+<script src="<?php echo $this->baseUrl('js/canvasjs.min.js') ?>"></script>
+<script src="<?php echo $this->baseUrl('js/underscore-min.js') ?>"></script>
+<script src="<?php echo $this->baseUrl('js/bootstrap-sortable.js') ?>"></script>
+<script src="<?php echo $this->baseUrl('js/moment.min.js') ?>"></script>
+
+<script type="text/javascript">
+        var baseUrl = "<?php echo $this->baseUrl(); ?>";
+    </script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+            <?php
+            if ($session->usuario['ic_administrador'] == '1') {
+                echo $this->render('/common/menuLateralAdm.phtml');
+            } else if ($session->usuario) {
+                echo $this->render('/common/menuLateral.phtml');
+            }
+            ?>
+            <button class="btn" id="btnMenuLateral"><<</button>
+			<div id="mainContent"
+				class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h1 class="page-header"> <?php echo $this->title; ?> </h1>
+                <?php
+                if ($session->usuario) {
+                    echo $this->render('/common/menuTopoAdm.phtml');
+                } else {
+                    echo $this->render('/common/menuTopo.phtml');
+                }
+                echo $this->render('/common/modalAlteraSenha.phtml');
+                echo $this->layout()->content;
+                ?>
+
+            </div>
+            <?php
+            // echo $this->render('footer.phtml');
+            ?>
+        </div>
+	</div>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,58 @@
+<script src="<?php echo $this->baseUrl() ?>/js/scripts/index/index.js"></script>
+
+<br />
+
+<h4>Bem vindo ao Painel de Gestão CedesBR</h4>
+
+<form class="navbar-form navbar-left" role="search" method="post"
+	action="<?php echo $this->baseUrl(); ?>/login/login">
+
+	<input type="hidden" name="nu_funcionario" />
+
+	<div class="form-group">
+		<input type="text" class="form-control" name="usuario"
+			placeholder="User ID">
+	</div>
+	<div class="form-group">
+		<input type="password" class="form-control" name="senha"
+			placeholder="Senha">
+	</div>
+	<button type="submit" class="btn btn-primary">Entrar</button>
+</form>
+
+<br />
+<br />
+<br />
+<br />
+
+Ainda não é cadastrado?
+<a href="<?php echo $this->baseUrl(); ?>/admin/cadastrar">Clique aqui</a>
+
+<br />
+<br />
+<br />
+
+<p>
+	Informações disponíveis para consulta e exportação: <br />
+<ul>
+	<li>Ocorrências do SIPON</li>
+	<li>Horas Extras</li>
+	<li>Universidade Caixa</li>
+</ul>
+<br />
+As informações são atualizadas mensalmente, após o fechamento do
+SIPON.
+
+<br />
+<br />
+Dúvidas ou informações:
+<a href="mailto:cedesbr031@caixa.gov.br">cedesbr031@caixa.gov.br</a>
+
+</p>
+
+<br />
+<br />
+
+<b>Fonte dos dados:</b>
+<a href="http://sipgp.caixa" target="_blank">SIPGP - Sistema de
+	Planejamento e Gestão de Pessoas</a>

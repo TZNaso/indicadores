@@ -1,0 +1,49 @@
+<script src="<?php echo $this->baseUrl('js/scripts/admin/atualizacao-dados.js'); ?>"></script>
+
+<ul class="nav nav-pills">
+    <li role="presentation" id="tabFuncionarios" class="active"><a href="#" onclick="clickEmpregados()">Sicronização de Dados Sipti</a></li>
+    <!--<li role="presentation" id="tabAreas"><a href="#" onclick="clickAreas()">Áreas</a></li>-->
+</ul>
+
+<hr/>
+
+<div id="funcionarios">
+
+    <h4>Atualização de dados</h4>
+
+    <br/>
+
+    <div class="well well-sm" style="display:none;"></div>
+
+    <span id="dtAtualizacao"><b>Data da última atualização:</b> <?php echo $this->DT_CARGA_EMPREGADOS; ?></span>
+
+    <br/><br/>
+
+    <button type="button" class="btn btn-default btn-lg" id="btnEmpregados">
+        <span id="spanButton" class="glyphicon glyphicon-repeat" aria-hidden="true"></span> <span id="spanText">Executar atualização</span> 
+    </button>
+    <br/>
+    <img id="imgCarregando" style="display:none;" src="<?php echo $this->baseUrl('img/carregando.gif'); ?>"/>
+
+</div>
+
+<!--<div id="areas"  style="display: none;">
+
+    <h4>Atualização das Áreas</h4>
+
+    <br/>
+
+    <div class="well well-sm" style="display:none;"></div>
+
+    <span id="dtAtualizacao"><b>Data da última atualização:</b> </?php echo $this->DT_CARGA_AREAS; ?></span>
+
+    <br/><br/>
+
+    <button type="button" class="btn btn-default btn-lg" id="btnAreas">
+        <span id="spanButton" class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span id="spanText">Executar atualização</span> 
+    </button>
+    <br/>
+    <img id="imgCarregando" style="display:none;" src="</?php echo $this->baseUrl('img/carregando.gif'); ?>"/>
+
+</div>
+-->

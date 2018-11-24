@@ -1,0 +1,51 @@
+
+<script
+	src="<?php echo $this->baseUrl(); ?>/js/scripts/menu-lateral/index.js"></script>
+<div id="MainMenu" class="col-sm-3 col-md-2 sidebar">
+	<ul class="nav nav-sidebar">
+		<li id="ocorrenciasSipon"><a href="#ocorrencias-sipon"
+			data-toggle="collapse" data-parent="#MainMenu">Ocorrências SIPON</a>
+			<div class="collapse" id="ocorrencias-sipon">
+				<a href="<?php echo $this->baseUrl(); ?>/ocorrencias-sipon-diario"
+					class="list-group-item">Diário</a> <a
+					href="<?php echo $this->baseUrl(); ?>/ocorrencias-sipon"
+					class="list-group-item">Mensal</a>
+			</div></li>
+		<li id="horasextras"><a href="#horas-extras" data-toggle="collapse"
+			data-parent="#MainMenu">Horas Extras</a>
+			<div class="collapse" id="horas-extras">
+				<a href="<?php echo $this->baseUrl(); ?>/horas-extras-acumulado"
+					class="list-group-item">Diário</a> <a
+					href="<?php echo $this->baseUrl(); ?>/horas-extras"
+					class="list-group-item">Mensal</a>
+				<!-- <a href="<?php echo $this->baseUrl(); ?>/revalida" class="list-group-item">Revalida</a> -->
+			</div></li>
+
+		<li id="universidade"><a href="#universidade-caixa"
+			data-toggle="collapse" data-parent="#MainMenu">Universidade Caixa</a>
+			<div class="collapse" id="universidade-caixa">
+				<a href="<?php echo $this->baseUrl(); ?>/universidade-fundamental"
+					class="list-group-item">Fundamental </a> <a
+					href="<?php echo $this->baseUrl(); ?>/universidade-lider"
+					class="list-group-item">Fundamental Lider</a> <a
+					href="<?php echo $this->baseUrl(); ?>/universidade-graficos"
+					class="list-group-item">Gráficos</a>
+			</div></li>
+		<li id="ligacoes"><a href="<?php echo $this->baseUrl(); ?>/ligacoes">Ligações
+				Telefônicas</a></li>
+		<li id="organograma"><a
+			href="<?php echo $this->baseUrl(); ?>/organograma">Organograma</a></li>
+	</ul>
+
+	<ul class="nav nav-sidebar">
+		<li id="menuCargaDados"><a
+			href="<?php echo $this->baseUrl(); ?>/admin/carga-dados">Carga de
+				Dados </a></li>
+		<li id="menuAtualizacaoDados"><a
+			href="<?php echo $this->baseUrl(); ?>/admin/atualizacao-dados">Atualização
+				de Dados</a></li>
+		<li id="menuUsuarios"><a
+			href="<?php echo $this->baseUrl(); ?>/usuario">Gestão de Usuários</a>
+		</li>
+	</ul>
+</div>
