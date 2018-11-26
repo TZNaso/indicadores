@@ -1,0 +1,22 @@
+function getValues() {
+  var pacote = document.querySelectorAll('[name=Pacote]:checked');
+  var values = [];
+  for (var i = 0; i < pacote.length; i++) {
+    // utilize o valor aqui, adicionei ao array para exemplo
+    values.push(pacote[i].value);
+  }
+  alert(values);
+}
+
+// adicionar ação ao clique no checkbox
+var checkboxes = document.querySelectorAll('[name=Pacote]');
+for (var i = 0; i < checkboxes.length; i++) {
+  // somente nome da função, sem executar com ()
+  checkboxes[i].addEventListener('click', getValues, false);
+}
+
+
+
+<input type="checkbox" id="Pacote_i" name="Pacote" value="Pacote i"/>
+<input type="checkbox" id="Pacote_ii" name="Pacote" value="Pacote ii"/>
+<input type="checkbox" id="Pacote_iii" name="Pacote" value="Pacote iii"/>
